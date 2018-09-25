@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tarena.ht.mapper.UserMapper">
+	<!-- 手动封住结果集 -->
+	<resultMap type="User" id="userRM" autoMapping="true">
+		<id column="user_id" property="userId" />
+		<!-- 从表userinfo，一对一的关系 -->
+		<association property="userInfo" javaType="UserInfo">
+			<id column="user_info_id" property="userInfoId" />
+			<result column="name" property="name" />
+			<result column="card_no" property="cardNo" />
+			<result column="join_date" property="joinDate" />
+			<result column="salary" property="salary" />
+			<result column="birthday" property="birthday" />
+			<result column="gender" property="gender" />
+			<result column="station" property="station" />
+			<result column="telephone" property="telephone" />
+			<result column="user_level" property="userLevel" />
+			<result column="remark" property="remark" />
+			<result column="order_no" property="orderNo" />
+			<!-- 自关联:上级领导 一对一的关系 -->
+			<association property="managerInfo" javaType="UserInfo">
+				<id column="m_id" property="userInfoId" />
+				<result column="m_name" property="name" />
+			</association>
+		</association>
+		<!-- 从表 dept ： 一对一的关系 -->
+		<association property="dept" javaType="Dept">
+			<id column="dept_id" property="deptId" />
+			<result column="dept_name" property="deptName" />
+		</association>
+	</resultMap>
+	
+	<sql id="selectUser">
+		select user.*,dept.dept_name from
+		(select * from
+		user_p u
+		left join
+		(select p1.USER_INFO_ID,p1.NAME,p1.CARD_NO,p2.m_id,p2.m_name,
+		p1.JOIN_DATE,p1.SALARY,p1.BIRTHDAY,p1.GENDER,p1.STATION,
+		p1.TELEPHONE,p1.USER_LEVEL,p1.REMARK,p1.ORDER_NO
+		from
+		user_info_p p1
+		left join
+		( select user_info_id m_id,name m_name from user_info_p) p2
+		on p1.manager_id=p2.m_id ) info
+		on u.user_id=info.user_info_id ) user
+		left join
+		dept_p dept
+		on user.dept_id=dept.dept_id
+	</sql>
+
+	<!-- 查询用户的全部信息 -->
+	<select id="findAll" resultMap="userRM">
+		<include refid="selectUser"></include>
+	</select>
+	
+	<!-- 分页查询：查询总数据量 -->
+	<select id="getUserTotalCount" resultType="int">
+		select count(*) from (
+			<include refid="selectUser"></include>
+		) uc
+	</select>
+	
+	<!-- 分页的实现：根据第几行开始的变量 -->
+	<select id="findUserByPages" resultMap="userRM">
+		<include refid="selectUser"/> limit #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- 用户的新增，查询上级领导 -->
+	<select id="findManagerUser" resultType="UserInfo">
+		select * from user_info_p
+	</select>
+	
+	<!-- 新增user -->
+	<insert id="saveUser">
+		insert into user_p
+			<trim prefix="(" suffixOverrides=",">
+				user_id,
+				<if test="username != null">username,</if>
+				<if test="password != null">password,</if>
+				<if test="state != null">state,</if>
+				<if test="dept != null">dept_id,</if>
+			</trim>
+		values
+			<trim>
+				#{userId },
+				<if test="username != null">#{username},</if>
+				<if test="password != null">#{password},</if>
+				<if test="state != null">#{state},</if>
+				<if test="dept != null">#{dept.deptId}</if>
+			</trim>
+	</insert>
+</mapper>
+
+
+
+
+
+
+
