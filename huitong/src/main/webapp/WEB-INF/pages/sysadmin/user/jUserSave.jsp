@@ -15,8 +15,7 @@
 					<div id="navMenubar">
 						<ul>
 							<li id="back"><a href="#" onclick="window.history.go(-1)">返回</a></li>
-							<li id="save"><a href="#"
-								onclick="formSubmit('save','_self');this.blur();">保存</a></li>
+							<li id="save"><a href="#" onclick="formSubmit('save','_self');this.blur();">保存</a></li>
 						</ul>
 					</div>
 				</div>
@@ -32,9 +31,9 @@
 				<table id="ec_table" class="tableRegion" width="98%">
 					<tr class="odd">
 						<td>用户名:</td>
-						<td><input type="text" name="username" /></td>
+						<td><input type="text" name="username"/></td>
 						<td>密码:</td>
-						<td><input type="password" name="password" /></td>
+						<td><input type="password" name="password"/></td>
 					</tr>
 					<tr class="odd">
 						<td>所属部门:</td>

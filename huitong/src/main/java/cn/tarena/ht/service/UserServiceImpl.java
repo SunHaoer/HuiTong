@@ -54,9 +54,11 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 		String userId = UUID.randomUUID().toString();		// 自动生成主键
 		user.setUserId(userId);		// 保存到user_p中
+		//for(int i = 0; i < 10; i++) System.out.println();
+		//System.out.println(user.getUserId() + " " + user.getUsername() + " " + user.getState() + " " + user.getDept().getDeptId() );
 		userMapper.saveUser(user);
-		UserInfo userInfo = user.getUserInfo();		// 保存到user_info_p中
-		userMapper.saveUserInfo(userInfo);
+		//UserInfo userInfo = user.getUserInfo();		// 保存到user_info_p中
+		//userMapper.saveUserInfo(userInfo);
 	}
 
 }

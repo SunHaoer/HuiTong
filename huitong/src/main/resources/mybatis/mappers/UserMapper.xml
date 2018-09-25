@@ -76,17 +76,17 @@
 	
 	<!-- 新增user -->
 	<insert id="saveUser">
-		insert into user_p
-			<trim prefix="(" suffixOverrides=",">
+		insert into user_p 
+			<trim prefix="(" suffix=")" suffixOverrides=",">
 				user_id,
 				<if test="username != null">username,</if>
 				<if test="password != null">password,</if>
 				<if test="state != null">state,</if>
-				<if test="dept != null">dept_id,</if>
+				<if test="dept != null">dept_id</if>
 			</trim>
-		values
+		values 
 			<trim>
-				#{userId },
+				#{userId},
 				<if test="username != null">#{username},</if>
 				<if test="password != null">#{password},</if>
 				<if test="state != null">#{state},</if>

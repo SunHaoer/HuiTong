@@ -44,7 +44,7 @@ public class UserController extends BaseController {
 	
 	
 	/**
-	 * 新增用户
+	 * 打开新增用户登记表
 	 * @param model
 	 * @return
 	 */
@@ -57,14 +57,18 @@ public class UserController extends BaseController {
 		return "/sysadmin/user/jUserSave";
 	}
 	
-	// 点击保存按钮，实现保存功能
+	/**
+	 * 保存新添加的用户
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/save")
 	public String saveUser(User user, Model model) {
 		// 校验用户的用户名是否存在
 		
 		// 调用service层的保存方法
-		
-		
+		userService.saveUser(user);
 		// 重定向
 		return "redirect:/sysadmin/user/list";
 	}

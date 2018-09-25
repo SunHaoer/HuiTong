@@ -5,31 +5,29 @@
 <head>
 <title>部门新增</title>
 <script type="text/javascript">
-	$(function() {//页面加载时执行的函数
-		//找到deptId的input框
+	$(function() {// 页面加载时执行的函数
+		// 找到deptId的input框
 		$("#deptId").blur(function() {
-			//var deptId = $("#deptId").val();
+			// var deptId = $("#deptId").val();
 			var deptId = $("input[name='deptId']").val();
-			//ajax的异步请求
+			// ajax的异步请求
 			$.ajax({
 				url : "/sysadmin/dept/checkDeptId",
 				data : {
 					deptId : deptId
 				},//data中存放的为deptId的key 和 value
-				type : "post",//请求的发送方式
-				dataType : "json",//结果的返回值类型
+				type : "post",// 请求的发送方式
+				dataType : "json",// 结果的返回值类型
 				success : function(data) {
-					//部门编号存在
+					// 部门编号存在
 					if (data.result == "true") {
 						$("#checkresult").html("该部门编号被占用");
-					}
-					//部门编号不存在
-					else {
+					} else {		//部门编号不存在
 						$("#checkresult").html("该部门编号可以使用");
 					}
 				}
 			})
-		});//失去焦点的事件
+		});// 失去焦点的事件
 	})
 </script>
 </head>
@@ -75,9 +73,6 @@
 						<td>上级部门：</td>
 						<td><select name="parentDept.deptId">
 								<option>---无上级---</option>
-								<!-- <option value="1">达内集团</option>
-				<option value="2">研发部</option>
-				<option value="3">教学部</option> -->
 								<c:forEach items="${parentDeptList }" var="p">
 									<option value="${p.deptId }">${p.deptName}</option>
 								</c:forEach>
