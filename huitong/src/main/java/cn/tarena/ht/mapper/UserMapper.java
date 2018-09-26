@@ -48,4 +48,26 @@ public interface UserMapper {
 	 * @param userInfo
 	 */
 	public void saveUserInfo(UserInfo userInfo);
+	
+	/**
+	 * 为用户添加角色，在role_user_p表中插入信息
+	 * @param userId
+	 * @param roleId
+	 */
+	public void saveUserRole(
+			@Param(value="userId") String userId,
+			@Param(value="roleId") String roleId);
+	
+	/**
+	 * 根据userid删除中间表信息
+	 * @param userId
+	 */
+	public void deleteUserRole(String userId);
+	
+	/**
+	 * 根据userId查询所有已经勾选的信息
+	 * @param userId
+	 * @return
+	 */
+	public List<String> findUserRoleByUserId(String userId);
 }

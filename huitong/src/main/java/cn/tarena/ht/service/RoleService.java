@@ -24,4 +24,17 @@ public interface RoleService {
 	 */
 	public void deleteRoleById(String[] roleIds);
 	
+	/**
+	 * 修改角色信息
+	 * @param role
+	 */
+	public void updateRole(Role role);
+	
+	/**
+	 * 查找角色详细信息
+	 * @param roleId
+	 * @return
+	 */
+	public Role findRoleById(String roleId);
+	
 }

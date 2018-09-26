@@ -39,4 +39,18 @@ public interface UserService {
 	 */
 	public void saveUser(User user);
 	
+	/**
+	 * 保存role到中间表
+	 * @param userId
+	 * @param roleIds
+	 */
+	public void saveUserRole(String userId, String roleIds);
+	
+	/**
+	 * 根据userId查询所有已经勾选的信息
+	 * @param userId
+	 * @return
+	 */
+	public List<String> findUserRoleByUserId(String userId);
+	
 }

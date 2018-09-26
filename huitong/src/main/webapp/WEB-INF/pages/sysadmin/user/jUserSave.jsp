@@ -15,7 +15,8 @@
 					<div id="navMenubar">
 						<ul>
 							<li id="back"><a href="#" onclick="window.history.go(-1)">返回</a></li>
-							<li id="save"><a href="#" onclick="formSubmit('save','_self');this.blur();">保存</a></li>
+							<li id="save"><a href="#"
+								onclick="formSubmit('save','_self');this.blur();">保存</a></li>
 						</ul>
 					</div>
 				</div>
@@ -26,14 +27,17 @@
 			<img src="../../staticfile/skin/default/images/icon/currency_yen.png" />
 			用户新增
 		</div>
+
 		<div>
+
+
 			<div class="eXtremeTable">
 				<table id="ec_table" class="tableRegion" width="98%">
 					<tr class="odd">
 						<td>用户名:</td>
-						<td><input type="text" name="username"/></td>
+						<td><input type="text" name="username" /></td>
 						<td>密码:</td>
-						<td><input type="password" name="password"/></td>
+						<td><input type="password" name="password" /></td>
 					</tr>
 					<tr class="odd">
 						<td>所属部门:</td>
@@ -50,7 +54,7 @@
 						<td>身份证号:</td>
 						<td><input type="text" name="userInfo.cardNo" /></td>
 						<td>上级领导:</td>
-						<td><select name="userInfo.manager.userInfoId"
+						<td><select name="userInfo.managerInfo.userInfoId"
 							style="width: 120px">
 								<option value="">---请选择---</option>
 								<c:forEach items="${userInfoList}" var="p">

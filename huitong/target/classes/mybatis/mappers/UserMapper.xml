@@ -121,6 +121,22 @@
 			</trim>
 	</insert>
 	
+	<!-- 保存中间关系表 -->
+	<insert id="saveUserRole">
+		insert into role_user_p (user_id, role_id)
+		values (#{userId}, #{roleId})
+	</insert>
+	
+	<!-- 删除用户 -->
+	<delete id="deleteUserRole">
+		
+	</delete>
+	
+	<!-- 根据userId查询已经勾选的信息 -->
+	<select id="findUserRoleByUserId" resultType="string" >
+		select * from role_user_p where user_id=#{userId}
+	</select>
+	
 </mapper>
 
 

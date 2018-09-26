@@ -8,9 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cn.tarena.ht.pojo.Dept;
+import cn.tarena.ht.pojo.Role;
 import cn.tarena.ht.pojo.User;
 import cn.tarena.ht.service.DeptService;
+import cn.tarena.ht.service.RoleService;
 import cn.tarena.ht.service.UserService;
 import cn.tarena.ht.tool.PageBean;
 
@@ -22,6 +27,8 @@ public class UserController extends BaseController {
 	private UserService userService;
 	@Autowired
 	private DeptService deptService;
+	@Autowired
+	private RoleService roleService;
 	
 	/**
 	 * 用户列表页面的跳转
@@ -70,6 +77,39 @@ public class UserController extends BaseController {
 		// 调用service层的保存方法
 		userService.saveUser(user);
 		// 重定向
+		return "redirect:/sysadmin/user/list";
+	}
+	
+	/**
+	 * 跳转到角色页面
+	 * @return
+	 * @throws JsonProcessingException 
+	 */
+	@RequestMapping(value="torole")
+	public String toUserRole(Model model, String userId) throws JsonProcessingException {
+		List<Role> roleList = roleService.findAll();		// 查询真实全部的角色信息
+		List<String> userRoles = userService.findUserRoleByUserId(userId);		// 根据userId查询所有已经勾选的信息
+		for(Role role : roleList) {
+			for(String roleId : userRoles) {
+				if(roleId.equals(role.getRoleId())) {
+					role.setChecked(true);
+				}
+			}
+		}
+		ObjectMapper objectMapper = new ObjectMapper();		// 使用ObjectMapper类进行转换
+		String zTreeJson = objectMapper.writeValueAsString(roleList);
+		model.addAttribute("zTreeJson", zTreeJson);
+		model.addAttribute("userId", userId);
+		return "/sysadmin/user/jUserRole";
+	}
+	
+	/**
+	 * 保存角色，数据保存到role_user_p的中间表中
+	 * @return
+	 */
+	@RequestMapping(value="saveUserRole")
+	public String saveRole(String userId, String roleIds) {
+		userService.saveUserRole(userId, roleIds);
 		return "redirect:/sysadmin/user/list";
 	}
 	

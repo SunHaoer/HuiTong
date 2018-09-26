@@ -32,4 +32,14 @@ public class RoleServiceImpl implements RoleService {
 		roleMapper.deleteRoleById(roleIds);
 	}
 
+	@Override
+	public void updateRole(Role role) {
+		roleMapper.updateRole(role);
+	}
+
+	@Override
+	public Role findRoleById(String roleId) {
+		return roleMapper.findRoleById(roleId);
+	}
+
 }

@@ -38,6 +38,16 @@
 		</foreach>
 	</delete>
 	
+	<!-- 修改角色 -->
+	<update id="updateRole">
+		update role_p set name=#{name}, remarks=#{remarks}, order_no=#{orderNo} where role_id=#{roleId}
+	</update>
+	
+	<!-- 查找角色详细信息 -->
+	<select id="findRoleById" resultType="Role">
+		select * from role_p where role_id=#{roleId}
+	</select>
+	
 </mapper>
 
 

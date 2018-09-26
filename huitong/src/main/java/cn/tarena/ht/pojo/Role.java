@@ -6,6 +6,8 @@ public class Role extends BaseEntity {
 	private String name;
 	private String remarks;
 	private Integer orderNo;
+	private String id;		// 根据roleId和zTree的数据格式，添加字段id
+	private boolean checked;
 	
 	public String getRoleId() {
 		return roleId;
@@ -38,12 +40,27 @@ public class Role extends BaseEntity {
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
+	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public boolean isChecked() {
+		return checked;
+	}
+	
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	@Override
 	public String toString() {
-		return "Role [roleId=" + roleId + ", name=" + name + ", remarks=" + remarks + ", orderNo=" + orderNo + "]";
+		return "Role [roleId=" + roleId + ", name=" + name + ", remarks=" + remarks + ", orderNo=" + orderNo + ", id="
+				+ id + ", checked=" + checked + "]";
 	}
-	
-	
 	
 }

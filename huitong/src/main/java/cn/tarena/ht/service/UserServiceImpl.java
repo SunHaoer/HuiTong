@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public PageBean<User> findUserByPages(int currentPage, int pageSize) {		// 返回值：pageBean的对象，不只是List<User>
-		for(int i = 0; i < 10; i++) System.out.println();
-		System.out.println(currentPage + " " + pageSize);
 		PageBean<User> pageBean = new PageBean<User>();
 		pageBean.setCurrPage(currentPage);		// 封装当前的页数
 		pageBean.setPageSize(pageSize);		// 封装每一页的数量
@@ -53,12 +51,25 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 		String userId = UUID.randomUUID().toString();		// 自动生成主键
 		user.setUserId(userId);		// 保存到user_p中
-		//for(int i = 0; i < 10; i++) System.out.println();
-		//System.out.println(user.getUserId() + " " + user.getUsername() + " " + user.getState() + " " + user.getDept().getDeptId() );
 		userMapper.saveUser(user);
 		UserInfo userInfo = user.getUserInfo();		// 保存到user_info_p中
 		user.setUserInfo(userInfo);
 		userMapper.saveUserInfo(userInfo);
+	}
+
+	@Override
+	public void saveUserRole(String userId, String roleIds) {
+		//userMapper.deleteUserRole(userId); 		// 防止数据重复提交，删除原数据
+		String[] roles = roleIds.split(",");	// roleIds为多个roleId的拼接字符串
+		for(String roleId : roles) {
+			userMapper.saveUserRole(userId, roleId);
+		}
+		
+	}
+
+	@Override
+	public List<String> findUserRoleByUserId(String userId) {
+		return userMapper.findUserRoleByUserId(userId);
 	}
 
 }
