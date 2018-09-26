@@ -26,6 +26,7 @@
 				<result column="m_name" property="name" />
 			</association>
 		</association>
+		
 		<!-- 从表 dept ： 一对一的关系 -->
 		<association property="dept" javaType="Dept">
 			<id column="dept_id" property="deptId" />
@@ -85,7 +86,7 @@
 				<if test="dept != null">dept_id</if>
 			</trim>
 		values 
-			<trim>
+			<trim prefix="(" suffix=")" suffixOverrides=",">
 				#{userId},
 				<if test="username != null">#{username},</if>
 				<if test="password != null">#{password},</if>
@@ -93,6 +94,33 @@
 				<if test="dept != null">#{dept.deptId}</if>
 			</trim>
 	</insert>
+	
+	<!-- 插入userinfo表 -->
+	<insert id="saveUserInfo">
+		insert into user_info_p
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				user_info_id,
+				<if test="userInfoId != null">userInfo,</if>
+				<if test="name != null">name,</if>
+				<if test="cardNo != null">card_no,</if>
+				<if test="manager_id != null">manager_id,</if>
+				<if test="joinDate != null">join_date,</if>
+				<if test="salary != null">salary,</if>
+				<if test="brithday != null">birthday,</if>
+				<if test="gender != null">gender,</if>
+				<if test="station != null">station,</if>
+				<if test="telephone != null">telephone,</if>
+				<if test="userLevel != null">user_level,</if>
+				<if test="remark != null">remark,</if>
+				<if test="orderNo != null">order_no,</if>
+				<if test="createBy != null">create_by,</if>
+			</trim>
+		value
+			<trim>
+			
+			</trim>
+	</insert>
+	
 </mapper>
 
 

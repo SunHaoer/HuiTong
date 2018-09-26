@@ -116,7 +116,7 @@
 							<tr class="odd" onmouseover="this.className='highlight'"
 								onmouseout="this.className='odd'">
 								<td><input type="checkbox" name="userId" value="${u.userId}" /></td>
-								<td>${status.index+1}</td>
+								<td>${status.index+1+pageBean.pageSize*(pageBean.pageSize-1)}</td>
 								<td>${u.username}</td>
 								<td>${u.dept.deptName}</td>
 								<td>${u.userInfo.name}</td>

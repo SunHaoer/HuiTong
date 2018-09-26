@@ -27,9 +27,8 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUserTotalCount();
 	}
 	
-	// 返回值：pageBean的对象，不只是List<User>
 	@Override
-	public PageBean<User> findUserByPages(int currentPage, int pageSize) {
+	public PageBean<User> findUserByPages(int currentPage, int pageSize) {		// 返回值：pageBean的对象，不只是List<User>
 		for(int i = 0; i < 10; i++) System.out.println();
 		System.out.println(currentPage + " " + pageSize);
 		PageBean<User> pageBean = new PageBean<User>();
@@ -57,8 +56,9 @@ public class UserServiceImpl implements UserService {
 		//for(int i = 0; i < 10; i++) System.out.println();
 		//System.out.println(user.getUserId() + " " + user.getUsername() + " " + user.getState() + " " + user.getDept().getDeptId() );
 		userMapper.saveUser(user);
-		//UserInfo userInfo = user.getUserInfo();		// 保存到user_info_p中
-		//userMapper.saveUserInfo(userInfo);
+		UserInfo userInfo = user.getUserInfo();		// 保存到user_info_p中
+		user.setUserInfo(userInfo);
+		userMapper.saveUserInfo(userInfo);
 	}
 
 }

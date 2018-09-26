@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tarena.ht.mapper.RoleMapper">
+
+	
+	<!-- 查询全部的角色信息 -->
+	<select id="findAll" resultType="Role">
+		select * from role_p
+	</select>
+	
+	<!-- 保存新添加的角色 -->
+	<insert id="saveRole">
+		insert into role_p
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			role_id,
+			<if test="name != null">name,</if>
+			<if test="orderNo != null">order_no,</if>
+			<if test="remarks != null">remarks</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			#{roleId},
+			<if test="name != null">#{name},</if>
+			<if test="orderNo != null">#{orderNo},</if>
+			<if test="remarks != null">#{remarks}</if>
+		</trim>
+	</insert>
+	
+	<!-- 批量删除角色信息 -->
+	<delete id="deleteRoleById">
+		delete from role_p where role_id in
+		<!-- collection="array是固定写法" 表示 单独的变量数组 -->
+		<foreach collection="array" open="(" close=")" item="roleId"
+			separator=",">
+			#{roleId}
+		</foreach>
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+

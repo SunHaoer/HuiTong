@@ -134,7 +134,7 @@ public class DeptController {
 			return "forward:/sysadmin/dept/tosave";
 		}
 		Dept checkDept = deptService.findDeptById(deptId);
-		if (checkDept != null) {	//表示  存在主键冲突
+		if (checkDept != null) {	// 表示存在主键冲突
 			model.addAttribute("errorInfo", "该部门编号已存在");
 			return "forward:/sysadmin/dept/tosave";
 		}
