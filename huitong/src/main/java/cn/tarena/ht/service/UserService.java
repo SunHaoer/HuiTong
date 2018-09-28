@@ -54,7 +54,7 @@ public interface UserService {
 	public List<String> findUserRoleByUserId(String userId);
 	
 	/**
-	 * 
+	 * 检验用户的登录信息
 	 * @param userName
 	 * @param password
 	 * @return

@@ -10,37 +10,8 @@ public class Module extends BaseEntity {
 	private Integer orderNo;
 	private String remarks;
 	private Module parentModule;		// 自关联
+	private boolean checked;		// 用于回显
 	
-	private String id;
-	private String pid;
-	private boolean checked;
-	
-	
-	
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPid() {
-		return pid;
-	}
-
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
-
-	public boolean isChecked() {
-		return checked;
-	}
-
-	public void setChecked(boolean checked) {
-		this.checked = checked;
-	}
-
 	public String getModuleId() {
 		return moduleId;
 	}
@@ -97,14 +68,19 @@ public class Module extends BaseEntity {
 		this.parentModule = parentModule;
 	}
 	
-	@Override
-	public String toString() {
-		return "module [moduleId=" + moduleId + ", name=" + name + ", ctype=" + ctype + ", state=" + state
-				+ ", orderNo=" + orderNo + ", remark=" + remarks + ", parentModule=" + parentModule + "]";
+	public boolean isChecked() {
+		return checked;
 	}
 	
-	
-	
-	
-	
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	@Override
+	public String toString() {
+		return "Module [moduleId=" + moduleId + ", name=" + name + ", ctype=" + ctype + ", state=" + state
+				+ ", orderNo=" + orderNo + ", remarks=" + remarks + ", parentModule=" + parentModule + ", checked="
+				+ checked + "]";
+	}
+
 }
