@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cn.tarena.ht.pojo.Dept;
 import cn.tarena.ht.pojo.Role;
 import cn.tarena.ht.pojo.User;
-import cn.tarena.ht.pojo.UserInfo;
 import cn.tarena.ht.service.DeptService;
 import cn.tarena.ht.service.RoleService;
 import cn.tarena.ht.service.UserService;

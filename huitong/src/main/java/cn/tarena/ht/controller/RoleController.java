@@ -119,16 +119,31 @@ public class RoleController {
 	 * @throws JsonProcessingException 
 	 */
 	@RequestMapping(value="tomodule")
-	public String toRoleModule(String roleId, Model model) throws JsonProcessingException {
+	public String toRoleModule(Model model, String roleId) throws JsonProcessingException {
+		List<String> checkedModule = moduleService.findRoleModuleByRoleId(roleId);
 		List<Module> moduleList = moduleService.findAll();
-		// 把list集合的数据转换成json格式
+		for(Module module : moduleList) {
+			if(checkedModule.contains(module.getModuleId())) {
+				module.setChecked(true);
+			}
+		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		String zTreeJson = objectMapper.writeValueAsString(moduleList);
-		model.addAttribute("zTree", zTreeJson);
+		model.addAttribute("zTreeJson", zTreeJson);
 		model.addAttribute("roleId", roleId);
-for(int i = 0; i < 10; i++) System.out.println();
-System.out.println(zTreeJson);
 		return "sysadmin/role/jRoleModule";
+	}
+	
+	/**
+	 * 保存角色的模块信息
+	 * @param roleId
+	 * @param moduleIds
+	 * @return
+	 */
+	@RequestMapping(value="saveRoleModule")
+	public String saveRoleModule(String roleId, String moduleIds) {
+		roleService.saveRoleModule(roleId, moduleIds);
+		return "redirect:/sysadmin/role/list";
 	}
 	
 }

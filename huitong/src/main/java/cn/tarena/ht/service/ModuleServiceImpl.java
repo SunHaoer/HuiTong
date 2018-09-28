@@ -14,23 +14,28 @@ import cn.tarena.ht.pojo.Module;
 public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
-	private ModuleMapper modulemapper;
+	private ModuleMapper moduleMapper;
 
 	@Override
 	public List<Module> findAll() {
-		return modulemapper.findAll();
+		return moduleMapper.findAll();
 	}
 
 	@Override
 	public List<Model> findParentModule() {
-		return modulemapper.findParentModule();
+		return moduleMapper.findParentModule();
 	}
 
 	@Override
 	public void saveModule(Module module) {
 		String moduleId =  UUID.randomUUID().toString();
 		module.setModuleId(moduleId);
-		modulemapper.saveModule(module);
+		moduleMapper.saveModule(module);
+	}
+
+	@Override
+	public List<String> findRoleModuleByRoleId(String roleId) {
+		return moduleMapper.findRoleModuleByRoleId(roleId);
 	}
 
 }

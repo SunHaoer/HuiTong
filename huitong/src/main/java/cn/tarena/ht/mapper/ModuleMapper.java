@@ -2,8 +2,6 @@ package cn.tarena.ht.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.ui.Model;
 
 import cn.tarena.ht.pojo.Module;
@@ -27,5 +25,12 @@ public interface ModuleMapper {
 	 * @param module
 	 */
 	public void saveModule(Module module);
+	
+	/**
+	 * 根据角色id查已勾选的角色模块
+	 * @param roleId
+	 * @return
+	 */
+	public List<String> findRoleModuleByRoleId(String roleId);
 	
 }

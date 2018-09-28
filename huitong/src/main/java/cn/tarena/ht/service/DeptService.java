@@ -3,7 +3,6 @@ package cn.tarena.ht.service;
 import java.util.List;
 
 import cn.tarena.ht.pojo.Dept;
-import cn.tarena.ht.pojo.User;
 import cn.tarena.ht.tool.PageBean;
 
 public interface DeptService {

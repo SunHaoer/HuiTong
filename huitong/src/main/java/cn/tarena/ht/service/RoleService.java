@@ -44,4 +44,11 @@ public interface RoleService {
 	 */
 	public boolean findUserByName(String name);
 	
+	/**
+	 * 保存角色的模块信息
+	 * @param roleId
+	 * @param moduleIds
+	 */
+	public void saveRoleModule(String roleId, String moduleIds);
+	
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import cn.tarena.ht.mapper.DeptMapper;
 import cn.tarena.ht.pojo.Dept;
-import cn.tarena.ht.pojo.User;
 import cn.tarena.ht.tool.PageBean;
 
 @Service

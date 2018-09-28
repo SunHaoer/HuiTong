@@ -33,6 +33,7 @@
 			zTreeObj.expandAll(true);		//展开所有树节点
 		});
 		
+		
 		//获取到所以用户选中的节点id值
 		//获取所有选择的节点，提交时调用下面函数
 		function submitCheckedNodes(treeNode) {
@@ -44,7 +45,7 @@
 				if (str != "") {
 					str += ",";
 				}
-				str += nodes[i].id;
+				str += nodes[i].moduleId;
 			}
 			alert(str);
 			$('#moduleIds').val(str);		//将拼接完成的字符串放入隐藏域，这样就可以通过post提交
@@ -77,7 +78,7 @@
 					<!--隐藏域用来传递数据  -->
 					<input type="text" id="roleId" name="roleId" value="${roleId}"/>
 					<input type="hidden" id="moduleIds" name="moduleIds"/>
-					<ul id="htZtree" class="ztree"></ul>hahhah
+					<ul id="htZtree" class="ztree"></ul>
 				</table>
 			</div>
 		</div>

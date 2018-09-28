@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.tarena.ht.mapper.RoleMapper;
-import cn.tarena.ht.mapper.UserMapper;
 import cn.tarena.ht.pojo.Role;
 
 @Service
@@ -52,6 +51,12 @@ public class RoleServiceImpl implements RoleService {
 		} else {				// 该名称已被占用，不可使用
 			return false;
 		}
+	}
+
+	@Override
+	public void saveRoleModule(String roleId, String moduleIds) {
+		String[] modules = moduleIds.split(",");
+		roleMapper.saveRoleModule(roleId, modules);
 	}
 
 }

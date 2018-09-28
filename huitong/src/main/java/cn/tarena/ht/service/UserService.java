@@ -2,10 +2,7 @@ package cn.tarena.ht.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import cn.tarena.ht.pojo.User;
-import cn.tarena.ht.pojo.UserInfo;
 import cn.tarena.ht.tool.PageBean;
 
 public interface UserService {

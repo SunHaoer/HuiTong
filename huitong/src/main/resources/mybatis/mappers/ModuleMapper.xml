@@ -50,6 +50,10 @@
 		</trim>
 	</insert>
 	
+    <select id="findRoleModuleByRoleId" resultType="string">
+    	select * from role_module_p where role_id=#{roleId}
+    </select>	
+	
 </mapper>
 
 

@@ -63,6 +63,15 @@
 		select * from role_p where name=#{name}
 	</select>
 	
+	<!-- 批量插入角色的模块信息 -->
+	<insert id="saveRoleModule">
+		insert into role_module_p (module_id,role_id) 
+		values 
+			<foreach collection="moduleIds" item="moduleId" separator=","  >
+				(#{moduleId}, #{roleId})
+			</foreach>
+	</insert>
+	
 </mapper>
 
 
