@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tarena.ht.pojo.Dept;
 import cn.tarena.ht.service.DeptService;
+import cn.tarena.ht.tool.PageBean;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -26,9 +27,16 @@ public class DeptController {
 	 * @return 部门显示列表
 	 */
 	@RequestMapping(value="/list")
-	public String toDeptList(Model model) {
-		List<Dept> deptList = deptService.findAll();	//调用service层的findAll方法
-		model.addAttribute("deptList", deptList);		//数据填充
+	public String toDeptList(
+			@RequestParam(defaultValue="1") int currentPage,
+			@RequestParam(defaultValue="10") int pageSize, Model model) {
+for(int i = 0; i < 10; i++) System.out.println();
+System.out.println(currentPage + " " + pageSize);
+		PageBean<Dept> pageBean = deptService.findDeptByPages(currentPage, pageSize);
+		model.addAttribute("pageBean", pageBean);
+		model.addAttribute("deptList", pageBean.getPageList());
+//		List<Dept> deptList = deptService.findAll();	//调用service层的findAll方法
+//		model.addAttribute("deptList", deptList);		//数据填充
 		return "/sysadmin/dept/jDeptList";		//返回的页面路径和名称
 	}
 	

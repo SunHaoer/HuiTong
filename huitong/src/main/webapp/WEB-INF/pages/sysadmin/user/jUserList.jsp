@@ -14,7 +14,7 @@
 				var this_url = $(this).attr("href");
 				//对url路径进行重新的赋值 list?currentPage=1&pageSize=10
 				$(this).attr("href",this_url+"&pageSize="+pagesize);
-				alert($(this).attr("href"));
+				//alert($(this).attr("href"));
 			})
 		})
 	</script>
@@ -84,9 +84,10 @@
 					</td>
 					<td>
 						<select name="pageSize" id="pageSize">
-							<option value="2" <c:if test="${pageBean.pageSize==2 }">selected="selected"</c:if> >2</option>
+							<option value="1" <c:if test="${pageBean.pageSize==1 }">selected="selected"</c:if> >1</option>
 							<option value="3" <c:if test="${pageBean.pageSize==3 }">selected="selected"</c:if> >3</option>
 							<option value="4" <c:if test="${pageBean.pageSize==4 }">selected="selected"</c:if> >4</option>
+							<option value="10" <c:if test="${pageBean.pageSize==10 }">selected="selected"</c:if> >10</option>
 						</select>
 					</td>
 					</tr>

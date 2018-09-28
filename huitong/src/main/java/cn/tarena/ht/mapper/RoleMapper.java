@@ -27,6 +27,12 @@ public interface RoleMapper {
 	public void deleteRoleById(String[] roleIds);
 	
 	/**
+	 * 删角色-用户对应关系
+	 * @param roleIds
+	 */
+	public void deleteRoleUserById(String[] roleIds);
+	
+	/**
 	 * 修改角色
 	 * @param role
 	 */
@@ -38,5 +44,12 @@ public interface RoleMapper {
 	 * @return
 	 */
 	public Role findRoleById(String roleId);
+	
+	/**
+	 * 根据名称查角色
+	 * @param name
+	 * @return
+	 */
+	public Role findRoleByName(String name);
 
 }

@@ -4,6 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>部门列表</title>
+	<script type="text/javascript">
+		$(function () {
+			//最终目的是： list?currentPage=1&pageSize=动态的
+			$("a").click(function() {
+				//获取下拉框中的每一页的数据量
+				var pagesize = $("#pageSize option:selected").val();
+				//获取当前a标签的请求路径 
+				var this_url = $(this).attr("href");
+				//对url路径进行重新的赋值 list?currentPage=1&pageSize=10
+				$(this).attr("href",this_url+"&pageSize="+pagesize);
+				//alert($(this).attr("href"));
+			})
+		})
+	</script>
 <script type="text/javascript"
 	src="${ctx}/staticfile/components/jquery-ui/jquery-1.2.6.js"></script>
 </head>
@@ -41,6 +55,58 @@
 			<div class="eXtremeTable">
 				<table id="ec_table" class="tableRegion" width="98%">
 					<thead>
+
+
+						<tr style="padding: 0px;">
+							<td colspan="10">
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+									<tr>
+										<td class="statusBar">找到 ${pageBean.totalCount} 条记录, 第
+											${pageBean.currPage} 页</td>
+										<td class="compactToolbar" align="right">
+											<table border="0" cellpadding="1" cellspacing="2">
+												<tr>
+													<td><a href="list?currentPage=1"> <img
+															src="../../staticfile/images/table/firstPageDisabled.gif"
+															style="border: 0" alt="第一页" />
+													</a></td>
+													<td><a
+														href="list?currentPage=${pageBean.currPage-1<=0? 1 : pageBean.currPage-1 }">
+															<img
+															src="../../staticfile/images/table/prevPageDisabled.gif"
+															style="border: 0" alt="上一页" />
+													</a></td>
+													<td><a
+														href="list?currentPage=${pageBean.currPage+1>=pageBean.totalPage? pageBean.totalPage : pageBean.currPage+1 }">
+															<img src="../../staticfile/images/table/nextPage.gif"
+															style="border: 0" title="下一页" alt="下一页" />
+													</a></td>
+													<td><a href="list?currentPage=${pageBean.totalPage }">
+															<img src="../../staticfile/images/table/lastPage.gif"
+															style="border: 0" title="最后页" alt="最后页" />
+													</a></td>
+													<td><img
+														src="../../staticfile/images/table/separator.gif"
+														style="border: 0" alt="Separator" /></td>
+													<td><select name="pageSize" id="pageSize">
+															<option value="1"
+																<c:if test="${pageBean.pageSize==1 }">selected="selected"</c:if>>1</option>
+															<option value="3"
+																<c:if test="${pageBean.pageSize==3 }">selected="selected"</c:if>>3</option>
+															<option value="4"
+																<c:if test="${pageBean.pageSize==4 }">selected="selected"</c:if>>4</option>
+															<option value="10"
+																<c:if test="${pageBean.pageSize==10 }">selected="selected"</c:if>>10</option>
+													</select></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+
 						<tr>
 							<td class="tableHeader"><input type="checkbox" name="selid"
 								onclick="checkAll('deptId',this)"></td>

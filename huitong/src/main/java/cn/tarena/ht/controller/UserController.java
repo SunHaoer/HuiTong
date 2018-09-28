@@ -47,7 +47,6 @@ public class UserController extends BaseController {
 		List<User> userList = pageBean.getPageList();
 		model.addAttribute("pageBean", pageBean);		// 数据填充
 		model.addAttribute("userList", userList);
-		
 		return "/sysadmin/user/jUserList";
 	}
 	

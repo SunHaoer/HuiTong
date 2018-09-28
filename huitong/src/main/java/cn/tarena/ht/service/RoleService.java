@@ -37,4 +37,11 @@ public interface RoleService {
 	 */
 	public Role findRoleById(String roleId);
 	
+	/**
+	 * 根据角色名称查角色
+	 * @param name
+	 * @return true(存在) || false(不存在)
+	 */
+	public boolean findUserByName(String name);
+	
 }

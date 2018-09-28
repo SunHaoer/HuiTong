@@ -54,4 +54,20 @@ public interface DeptMapper {
 	 * @return
 	 */
 	public Dept findDeptBackById(String deptId);
+	
+	/**
+	 * 部门的分页查询
+	 * @param currentPage
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Dept> findDeptByPages(
+			@Param(value="startRow") int startRow, 
+			@Param(value="pageSize") int pageSize);
+	
+	/**
+	 * 查询数据量
+	 * @return
+	 */
+	public int getDeptTotalCount();
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.tarena.ht.pojo.Dept;
 import cn.tarena.ht.pojo.User;
+import cn.tarena.ht.tool.PageBean;
 
 public interface DeptService {
 	/**
@@ -50,5 +51,13 @@ public interface DeptService {
 	 * @return
 	 */
 	public Dept findDeptBackById(String deptId);
+	
+	/**
+	 * 部门的分页查询
+	 * @param currentPage
+	 * @param pageSize
+	 * @return
+	 */
+	public PageBean<Dept> findDeptByPages(int currentPage, int pageSize);
 	
 }

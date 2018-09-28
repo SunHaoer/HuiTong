@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,11 +52,17 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="save")
-	public String saveRole(Role role) {
-		// 校验非空
-		
-		// 保存
-		roleService.saveRole(role);
+	public String saveRole(Model model, Role role) {
+		if(StringUtils.isEmpty(role.getName())) {		// 校验非空
+			model.addAttribute("errorInfo", "角色名称不能为空");
+			return "/sysadmin/role/jRoleSave";
+		}
+		boolean access = roleService.findUserByName(role.getName());
+		if(!access) {		// 该名称已经被占用
+			model.addAttribute("errorInfo", "该名称已被占用");
+			return "/sysadmin/role/jRoleSave";
+		}
+		roleService.saveRole(role);			// 保存
 		return "redirect:/sysadmin/role/list";
 	}
 	
@@ -78,7 +85,9 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="toupdate")
-	public String toUpdateRole(Role role) {
+	public String toUpdateRole(Model model, String roleId) {
+		Role role = roleService.findRoleById(roleId);
+		model.addAttribute("role", role);
 		return "/sysadmin/role/jRoleUpdate";
 	}
 	

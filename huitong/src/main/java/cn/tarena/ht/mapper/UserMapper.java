@@ -62,7 +62,7 @@ public interface UserMapper {
 	 * 根据userid删除中间表信息
 	 * @param userId
 	 */
-	public void deleteUserRole(String userId);
+	public void deleteUserRoleById(String userId);
 	
 	/**
 	 * 根据userId查询所有已经勾选的信息

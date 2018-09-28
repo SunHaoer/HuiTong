@@ -30,6 +30,11 @@
 	<select id="findAll" resultMap="deptRM">
 		<include refid="selectDept" />
 	</select>
+	
+	<!-- 分页查询 -->
+	<select id="findDeptByPages" resultMap="deptRM">
+		<include refid="selectDept" /> limit #{startRow}, #{pageSize}
+	</select>
 
 	<!-- 更新部门的状态 -->
 	<update id="updateState">
@@ -89,6 +94,11 @@
 	<select id="findDeptBackById" resultMap="deptRM">
 		<include refid="selectDept" />
 		where dept_id=#{deptId}
+	</select>
+	
+	<!-- 统计部门数量 -->
+	<select id="getDeptTotalCount" resultType="int">
+		select count(*) from dept_p
 	</select>
 
 </mapper>

@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 		for(String userId : userIds) {
 			userMapper.deleteUserByUserId(userId);
 			userMapper.deleteUserInfoByUserId(userId);
-			userMapper.deleteUserRole(userId);
+			userMapper.deleteUserRoleById(userId);
 		}
 	}
 

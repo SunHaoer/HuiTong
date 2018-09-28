@@ -38,6 +38,16 @@
 		</foreach>
 	</delete>
 	
+	<!-- 批量删除角色-用户对应关系 -->
+	<delete id="deleteRoleUserById">
+		delete from role_user_p where role_id in
+		<!-- collection="array是固定写法" 表示 单独的变量数组 -->
+		<foreach collection="array" open="(" close=")" item="roleId"
+			separator=",">
+			#{roleId}
+		</foreach>
+	</delete>
+	
 	<!-- 修改角色 -->
 	<update id="updateRole">
 		update role_p set name=#{name}, remarks=#{remarks}, order_no=#{orderNo} where role_id=#{roleId}
@@ -46,6 +56,11 @@
 	<!-- 查找角色详细信息 -->
 	<select id="findRoleById" resultType="Role">
 		select * from role_p where role_id=#{roleId}
+	</select>
+	
+	<!-- 根据角色名称查角色 -->
+	<select id="findRoleByName" resultType="Role">
+		select * from role_p where name=#{name}
 	</select>
 	
 </mapper>
