@@ -206,9 +206,9 @@
 		title="点击关闭">
 		<img
 			src="${ctx}/staticfile/skin/default/images/title/avataronline.gif"
-			border="0" style="margin-top: -1px;" /> 您好：<strong>${_CURRENT_USER.userInfo.name}</strong>&nbsp;&nbsp;|
-		您所属单位：<strong> <c:if test="${!empty _CURRENT_USER.dept}">
-			${_CURRENT_USER.dept.deptName}
+			border="0" style="margin-top: -1px;" /> 您好：<strong> ${sessionUser.username} </strong>&nbsp;&nbsp;|
+		您所属单位：<strong>  <c:if test="${sessionUser.dept != null}"> 
+			  ${sessionUser.dept.deptName}  
 			</c:if>
 		</strong>&nbsp;&nbsp; <img
 			src="${ctx}/staticfile/skin/default/images/title/close.gif"

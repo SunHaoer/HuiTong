@@ -53,7 +53,10 @@ public class UserServiceImpl implements UserService {
 		user.setUserId(userId);		// 保存到user_p中
 		userMapper.saveUser(user);
 		UserInfo userInfo = user.getUserInfo();		// 保存到user_info_p中
+		userInfo.setUserInfoId(user.getUserId());
 		user.setUserInfo(userInfo);
+//for(int i = 0; i < 10; i++) System.out.println();
+//System.out.println(userInfo);
 		userMapper.saveUserInfo(userInfo);
 	}
 
@@ -72,4 +75,39 @@ public class UserServiceImpl implements UserService {
 		return userMapper.findUserRoleByUserId(userId);
 	}
 
+	@Override
+	public User checkLoginByUser(String userName, String password) {
+		return userMapper.checkLoginByUser(userName, password);
+	}
+
+	@Override
+	public boolean findUserByUsername(String username) {
+		if(userMapper.findUserByUsername(username) == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void deleteUserByUserId(String[] userIds) {
+		for(String userId : userIds) {
+			userMapper.deleteUserByUserId(userId);
+			userMapper.deleteUserInfoByUserId(userId);
+			userMapper.deleteUserRole(userId);
+		}
+	}
+
+	@Override
+	public User findUserByUserId(String userId) {
+		User user = userMapper.findUserByUserId(userId);
+		//user.setUserId(user.getUserInfo().getUserInfoId());
+		user.setUsername(user.getUserInfo().getName());
+		return user;
+	}
+
+	@Override
+	public void updateUserState(String[] userIds, int state) {
+			userMapper.updateUserState(userIds, state);			
+	}
 }

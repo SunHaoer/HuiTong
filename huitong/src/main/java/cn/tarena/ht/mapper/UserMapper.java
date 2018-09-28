@@ -70,4 +70,49 @@ public interface UserMapper {
 	 * @return
 	 */
 	public List<String> findUserRoleByUserId(String userId);
+	
+	/**
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return
+	 */
+	public User checkLoginByUser(
+			@Param(value="userName") String userName, 
+			@Param(value="password") String password);
+	
+	/**
+	 * 根据用户名查用户
+	 * @param username
+	 * @return
+	 */
+	public User findUserByUsername(String username);
+	
+	/**
+	 * 根据id删除用户
+	 * @param userId
+	 */
+	public void deleteUserByUserId(String userId);
+	
+	/**
+	 * 根据id删除用户详细信息
+	 * @param userId
+	 */
+	public void deleteUserInfoByUserId(String userId);
+	
+	/**
+	 * 根据id查用户回显信息
+	 * @param userId
+	 */
+	public User findUserByUserId(String userId);
+	
+	/**
+	 * 更改用户使用状态
+	 * @param userIds
+	 * @param state
+	 */
+	public void updateUserState(
+			@Param(value="userIds") String[] userIds,
+			@Param(value="state") int state);
+	
 }

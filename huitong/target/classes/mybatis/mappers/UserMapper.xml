@@ -19,12 +19,12 @@
 			<result column="telephone" property="telephone" />
 			<result column="user_level" property="userLevel" />
 			<result column="remark" property="remark" />
-			<result column="order_no" property="orderNo" />
-			<!-- 自关联:上级领导 一对一的关系 -->
+			<result column="order_no" property="orderNo"/>	
+			<!-- 自关联:上级领导  一对一的关系 -->
 			<association property="managerInfo" javaType="UserInfo">
 				<id column="m_id" property="userInfoId" />
 				<result column="m_name" property="name" />
-			</association>
+			</association>		
 		</association>
 		
 		<!-- 从表 dept ： 一对一的关系 -->
@@ -97,27 +97,37 @@
 	
 	<!-- 插入userinfo表 -->
 	<insert id="saveUserInfo">
-		insert into user_info_p
+		insert into user_info_p 
 			<trim prefix="(" suffix=")" suffixOverrides=",">
-				user_info_id,
-				<if test="userInfoId != null">userInfo,</if>
+				<if test="userInfoId != null">user_info_id,</if>
 				<if test="name != null">name,</if>
 				<if test="cardNo != null">card_no,</if>
-				<if test="manager_id != null">manager_id,</if>
+				<if test="managerInfo != null">manager_id,</if>
 				<if test="joinDate != null">join_date,</if>
 				<if test="salary != null">salary,</if>
-				<if test="brithday != null">birthday,</if>
+				<if test="birthday != null">birthday,</if>
 				<if test="gender != null">gender,</if>
 				<if test="station != null">station,</if>
 				<if test="telephone != null">telephone,</if>
 				<if test="userLevel != null">user_level,</if>
 				<if test="remark != null">remark,</if>
-				<if test="orderNo != null">order_no,</if>
-				<if test="createBy != null">create_by,</if>
+				<if test="orderNo != null">order_no</if>
 			</trim>
-		value
-			<trim>
-			
+		values 
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="userInfoId != null">#{userInfoId},</if>
+				<if test="name != null">#{name},</if>
+				<if test="cardNo != null">#{cardNo},</if>
+				<if test="managerInfo != null">#{managerInfo.userInfoId},</if>
+				<if test="joinDate != null">#{joinDate},</if>
+				<if test="salary != null">#{salary},</if>
+				<if test="birthday != null">#{birthday},</if>
+				<if test="gender != null">#{gender},</if>
+				<if test="station != null">#{station},</if>
+				<if test="telephone != null">#{telephone},</if>
+				<if test="userLevel != null">#{userLevel},</if>
+				<if test="remark != null">#{remark},</if>
+				<if test="orderNo != null">#{orderNo}</if>
 			</trim>
 	</insert>
 	
@@ -129,7 +139,7 @@
 	
 	<!-- 删除用户 -->
 	<delete id="deleteUserRole">
-		
+		delete from role_user_p where user_id=#{userId}
 	</delete>
 	
 	<!-- 根据userId查询已经勾选的信息 -->
@@ -137,6 +147,46 @@
 		select * from role_user_p where user_id=#{userId}
 	</select>
 	
+ 	<!-- 登录时根据用户名和密码查询是否存在此人 -->
+ 	<select id="checkLoginByUser" resultMap="userRM">
+		<include refid="selectUser"/> where username=#{userName} and password=#{password}
+	</select>  
+	
+	<!-- 根据用户名查用户 -->
+	<select id="findUserByUsername" resultType="User">
+		select * from user_p where username=#{username}
+	</select>
+	
+	<!-- 根据id删除用户 -->
+	<delete id="deleteUserByUserId">
+		delete from user_p where user_id=#{userId}
+	</delete>
+	
+	<!-- 根据id删除用户详细信息 -->
+	<delete id="deleteUserInfoByUserId">
+		delete from user_info_p where user_info_id=#{userId}
+	</delete>	
+	
+	<!-- 根据id查询用户 -->
+	<select id="findUserByUserId" resultMap="userRM">
+		select * from user_info_p where user_info_id=#{userId}
+	</select>
+	
+	<!-- 更改用户状态 -->
+	<update id="updateUserState">
+		<!-- 两个变量同时取值：使用map集合 -->
+		<!-- update dept_p set state=#{state} where dept_id=#{deptId} -->
+
+		<!-- 批量更新部门状态 -->
+		update user_p set state=#{state}
+		where user_id in
+		<!-- collection="map的key" : map集合遍历 -->
+		<foreach collection="userIds" open="(" close=")" item="userId"
+			separator=",">
+			#{userId}
+		</foreach>
+	</update>	
+		
 </mapper>
 
 

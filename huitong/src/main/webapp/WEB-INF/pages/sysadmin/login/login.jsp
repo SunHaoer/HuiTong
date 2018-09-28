@@ -3,10 +3,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>国际物流汇通商贸</title>
-<link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/staticfile/skin/default/css/login.css" media="all" />
+<link rel="stylesheet" rev="stylesheet" type="text/css"
+	href="${ctx}/staticfile/skin/default/css/login.css" media="all" />
 <script src="${ctx}/staticfile/components/pngfix/DD_belatedPNG.js"></script>
 <script>
 	DD_belatedPNG.fix('*');
+</script>
+<script type="text/javascript">
+	function resetInfo() {
+		$("#reset").html("");
+		var vlaue = $("#reset").val();
+		alert(value);
+	}
+	
 </script>
 </head>
 
@@ -16,14 +25,13 @@
 			<div class="box">
 				<div class="inputstyle">
 					<div class="inputlable">
-						用户名： <input type="text" value="tony" name="userName" id="userName"
+						用户名： <input type="text" value="" name="userName" id="userName"
 							onFocus="this.select();" title="请您输入用户名" />
 						<div id="ts" style="z-index: 1;"></div>
 					</div>
 
 					<div class="inputlable">
-						密 码： <input type="password" value="123456" name="password"
-							id="password"
+						密 码： <input type="password" value="" name="password" id="password"
 							onfocus="$('#ts').css('display','none');this.select();"
 							onKeyDown="javascript:if(event.keyCode==13){ submitFind(); }"
 							title="请您输入密码" />

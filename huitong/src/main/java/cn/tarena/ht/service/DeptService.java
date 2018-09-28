@@ -3,6 +3,7 @@ package cn.tarena.ht.service;
 import java.util.List;
 
 import cn.tarena.ht.pojo.Dept;
+import cn.tarena.ht.pojo.User;
 
 public interface DeptService {
 	/**
@@ -49,4 +50,5 @@ public interface DeptService {
 	 * @return
 	 */
 	public Dept findDeptBackById(String deptId);
+	
 }

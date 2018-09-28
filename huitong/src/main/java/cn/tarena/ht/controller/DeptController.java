@@ -14,17 +14,18 @@ import cn.tarena.ht.service.DeptService;
 import net.sf.json.JSONObject;
 
 @Controller
+@RequestMapping(value="/sysadmin/dept")
 public class DeptController {
+	
 	@Autowired
 	private DeptService deptService;
-	
 	
 	/**
 	 * 根据实际的业务逻辑，在页面跳转时，先查询所有的列表信息
 	 * @param model
 	 * @return 部门显示列表
 	 */
-	@RequestMapping(value="/sysadmin/dept/list")
+	@RequestMapping(value="/list")
 	public String toDeptList(Model model) {
 		List<Dept> deptList = deptService.findAll();	//调用service层的findAll方法
 		model.addAttribute("deptList", deptList);		//数据填充
@@ -36,7 +37,7 @@ public class DeptController {
 	 * @param deptIds
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/stop")
+	@RequestMapping(value="/stop")
 	public String toStop(
 			@RequestParam(value="deptId",defaultValue="0") String[] deptIds) {
 		int state = 0;	//停用的状态
@@ -49,7 +50,7 @@ public class DeptController {
 	 * @param deptIds
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/start")
+	@RequestMapping(value="/start")
 	public String toStart(
 			@RequestParam(value="deptId",defaultValue="0") String[] deptIds) {
 		int state = 1;		//启动的状态
@@ -63,7 +64,7 @@ public class DeptController {
 	 * @param deptIds
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/delete")
+	@RequestMapping(value="/delete")
 	public String deleteDept(
 			@RequestParam(value="deptId",defaultValue="0") String[] deptIds) {
 		deptService.deleteDept(deptIds);
@@ -76,10 +77,10 @@ public class DeptController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/tosave")
+	@RequestMapping(value="/tosave")
 	public String toSaveDept(Model model) {
-		List<Dept> parentDeptList = deptService.findParentDept();		//准备 上级部门信息的数据
-		model.addAttribute("parentDeptList", parentDeptList);		//数据填充
+		List<Dept> parentDeptList = deptService.findParentDept();		// 准备 上级部门信息的数据
+		model.addAttribute("parentDeptList", parentDeptList);		// 数据填充
 		return "/sysadmin/dept/jDeptSave";
 	}
 	
@@ -89,16 +90,16 @@ public class DeptController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/save")
+	@RequestMapping(value="/save")
 	public String saveDept(Dept dept , Model model) {
 		String deptId = dept.getDeptId();
-		if (deptId == null || "".equals(deptId)) {	//在执行插入方法之前，先教研数据是否存在
+		if (deptId == null || "".equals(deptId)) {	// 在执行插入方法之前，先校验数据是否存在
 			return "forward:/sysadmin/dept/tosave";
 		}
 		Dept checkDept = deptService.findDeptById(deptId);
-		if (checkDept != null) {//表示  存在主键冲突
-			model.addAttribute("errorInfo", "该部门编号已存在");		//给出前端页面一个错误信息
-			return "forward:/sysadmin/dept/tosave";		//使用转发：主要作用：把错误信息带入到页面中
+		if (checkDept != null) {// 表示存在主键冲突
+			model.addAttribute("errorInfo", "该部门编号已存在");		// 给出前端页面一个错误信息
+			return "forward:/sysadmin/dept/tosave";		// 使用转发：主要作用：把错误信息带入到页面中
 		}
 		deptService.saveDept(dept);
 		return "redirect:/sysadmin/dept/list";
@@ -111,11 +112,11 @@ public class DeptController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/toupdate")
+	@RequestMapping(value="/toupdate")
 	public String toUpdateDept(String deptId,Model model) {
-		Dept dept = deptService.findDeptBackById(deptId);	//数据的回显：需要自关联的查询
-		List<Dept> parentDeptList = deptService.findParentDept();	//准备 上级部门信息的数据
-		model.addAttribute("dept", dept);		//数据填充
+		Dept dept = deptService.findDeptBackById(deptId);	// 数据的回显：需要自关联的查询
+		List<Dept> parentDeptList = deptService.findParentDept();	// 准备 上级部门信息的数据
+		model.addAttribute("dept", dept);		// 数据填充
 		model.addAttribute("parentDeptList", parentDeptList);
 		return "/sysadmin/dept/jDeptUpdate";
 	}
@@ -127,18 +128,12 @@ public class DeptController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/update")
-	public String updateDept(Dept dept,Model model) {
+	@RequestMapping(value="/update")
+	public String updateDept(Dept dept, Model model) {
 		String deptId = dept.getDeptId();
-		if (deptId == null || "".equals(deptId)) {
-			return "forward:/sysadmin/dept/tosave";
-		}
-		Dept checkDept = deptService.findDeptById(deptId);
-		if (checkDept != null) {	// 表示存在主键冲突
-			model.addAttribute("errorInfo", "该部门编号已存在");
-			return "forward:/sysadmin/dept/tosave";
-		}
-		
+		String[] deptIds = {deptId};
+		deptService.deleteDept(deptIds);
+		deptService.saveDept(dept);
 		return "redirect:/sysadmin/dept/list";
 	}
 	
@@ -147,10 +142,9 @@ public class DeptController {
 	 * @param deptId
 	 * @return
 	 */
-	@RequestMapping(value="/sysadmin/dept/checkDeptId")
+	@RequestMapping(value="/checkDeptId")
 	@ResponseBody  //把json对象放入到response中
 	public JSONObject checkDeptId(String deptId) {
-		System.out.println("haha");
 		JSONObject jsonObject = new JSONObject();
 		Dept dept = deptService.findDeptById(deptId);
 		if(dept == null) {
@@ -159,6 +153,15 @@ public class DeptController {
 			jsonObject.put("result", "true");
 		}
 		return jsonObject;
+	}
+	
+	/**
+	 * 显示部门详细信息(没有提供对应页面，不实现)
+	 * @return
+	 */
+	@RequestMapping(value="/toview")
+	public String toView() {
+		return "redirect:/sysadmin/dept/list";
 	}
 	
 }

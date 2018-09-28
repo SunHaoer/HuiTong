@@ -7,18 +7,28 @@ public class UserInfo extends BaseEntity {
 	private String userInfoId;
 	private String name;
 	private String cardNo;
+	private String managerId;
 	private Date joinDate;
 	// 自关联描述
 	private UserInfo managerInfo;	// 上级领导
 	private Double salary;
-	private Date Birthday;
+	private Date birthday;
 	private String gender;
 	private String station;
 	private String telephone;
 	private String userLevel;
 	private String remark;
 	private Integer orderNo;
+	private User manager;
 	
+	public User getManager() {
+		return manager;
+	}
+
+	public void setManager(User manager) {
+		this.manager = manager;
+	}
+
 	public String getUserInfoId() {
 		return userInfoId;
 	}
@@ -41,6 +51,14 @@ public class UserInfo extends BaseEntity {
 	
 	public void setCardNo(String cardNo) {
 		this.cardNo = cardNo;
+	}
+	
+	public String getManagerId() {
+		return managerId;
+	}
+	
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 	
 	public Date getJoinDate() {
@@ -68,11 +86,11 @@ public class UserInfo extends BaseEntity {
 	}
 	
 	public Date getBirthday() {
-		return Birthday;
+		return birthday;
 	}
 	
 	public void setBirthday(Date birthday) {
-		Birthday = birthday;
+		this.birthday = birthday;
 	}
 	
 	public String getGender() {
@@ -125,12 +143,10 @@ public class UserInfo extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "UserInfo [userInfoId=" + userInfoId + ", name=" + name + ", cardNo=" + cardNo + ", joinDate=" + joinDate
-				+ ", managerInfo=" + managerInfo + ", salary=" + salary + ", Birthday=" + Birthday + ", gender="
-				+ gender + ", station=" + station + ", telephone=" + telephone + ", userLevel=" + userLevel
-				+ ", remark=" + remark + ", orderNo=" + orderNo + "]";
+		return "UserInfo [userInfoId=" + userInfoId + ", name=" + name + ", cardNo=" + cardNo + ", managerId="
+				+ managerId + ", joinDate=" + joinDate + ", managerInfo=" + managerInfo + ", salary=" + salary
+				+ ", Birthday=" + birthday + ", gender=" + gender + ", station=" + station + ", telephone=" + telephone
+				+ ", userLevel=" + userLevel + ", remark=" + remark + ", orderNo=" + orderNo + "]";
 	}
 
-	
-	
 }
