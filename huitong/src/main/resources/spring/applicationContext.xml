@@ -11,7 +11,7 @@
 	<context:property-placeholder location="classpath:/db-mysql.properties"/>
 	
 	<!-- 扫描包 -->
-	<context:component-scan base-package="cn.tarena.ht.service" />
+	<context:component-scan base-package="pro.sunhao.ht.service" />
 
 	<!-- 数据源:DataSource
 		数据源指的是：

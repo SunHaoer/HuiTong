@@ -10,6 +10,9 @@
   
   <!-- 集中定义依赖版本号 -->
 	<properties>
+		<maven.compiler.source>1.7</maven.compiler.source>
+    	<maven.compiler.target>1.7</maven.compiler.target>
+	
 		<!-- <自定义的版本名称 junit.version> -->
 		<junit.version>4.12</junit.version>
 		<spring.version>4.2.3.RELEASE</spring.version>
@@ -178,13 +181,27 @@
 			<version>2.4</version> 
 			<classifier>jdk15</classifier> 
 		</dependency> 
-		<!-- jackson --> 
+		<!-- jackson : 提供了ObjectMapper类
+			用于 json格式的转换
+		 --> 
 		<dependency> 
 			<groupId>com.fasterxml.jackson.core</groupId> 
 			<artifactId>jackson-databind</artifactId> 
 			<version>2.8.8.1</version> 
 		</dependency>
-							
+		
+		<!-- Apache Shiro 权限架构 -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-all</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

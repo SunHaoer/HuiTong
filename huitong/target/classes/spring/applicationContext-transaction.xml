@@ -31,9 +31,9 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<aop:config>
+	<aop:config> 
 		<!-- 定义切面，所有的service的所有方法 -->
-		<aop:pointcut id="txPointcut" expression="execution(* cn.tarena.ht.service.*.*(..))" />
+		<aop:pointcut id="txPointcut" expression="execution(* pro.sunhao.ht.service.*.*(..))" />
 		<!-- 应用事务策略到Service切面 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
 	</aop:config>

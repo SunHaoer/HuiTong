@@ -2,7 +2,7 @@
 <!DOCTYPE mapper 
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tarena.ht.mapper.DeptMapper">
+<mapper namespace="pro.sunhao.ht.mapper.DeptMapper">
 	<!-- 手动封住结果集 -->
 	<resultMap type="Dept" id="deptRM" autoMapping="true">
 		<id column="dept_id" property="deptId" />
