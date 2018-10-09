@@ -1,5 +1,5 @@
 # HuiTong<br />
-这是我的第一个Maven + SSH框架项目<br />
+这是我的第一个Maven + SSM框架项目<br />
 项目展示：www.wochi.xin/huitong<br />
 部署环境：jdk1.7 + tomcat7<br />
 
