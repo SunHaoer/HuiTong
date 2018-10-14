@@ -1,9 +1,9 @@
 # HuiTong<br />
 这是我的第一个Maven + SSM框架项目<br />
 项目展示：www.wochi.xin/huitong<br />
-部署环境：jdk1.7 + tomcat7<br />
+部署环境：jdk1.7 + tomcat7 + mysql5.6<br />
 
-实现功能：利用spring框架整合springmvc与mybatis实现部门管理，用户管理，角色管理等基本模块信息及其中的嵌套关系；<br />
+实现功能：由maven管理，利用spring框架整合springmvc与mybatis实现部门管理，用户管理，角色管理等基本模块信息及其中的嵌套关系；<br />
 项目结构：<br />
 pro.sunhao.ht.pro包：为项目提供需要对象的类；<br />
 pro.sunhao.ht.contoller包：项目控制层；<br />
