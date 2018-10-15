@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pro.sunhao.ht.mapper.RoleMapper">
+
+	
+	<!-- 查询全部的角色信息 -->
+	<select id="findAll" resultType="Role">
+		select * from role_p
+	</select>
+	
+	<!-- 保存新添加的角色 -->
+	<insert id="saveRole">
+		insert into role_p
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			role_id,
+			<if test="name != null">name,</if>
+			<if test="orderNo != null">order_no,</if>
+			<if test="remarks != null">remarks</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			#{roleId},
+			<if test="name != null">#{name},</if>
+			<if test="orderNo != null">#{orderNo},</if>
+			<if test="remarks != null">#{remarks}</if>
+		</trim>
+	</insert>
+	
+	<!-- 批量删除角色信息 -->
+	<delete id="deleteRoleById">
+		delete from role_p where role_id in
+		<!-- collection="array是固定写法" 表示 单独的变量数组 -->
+		<foreach collection="array" open="(" close=")" item="roleId"
+			separator=",">
+			#{roleId}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除角色-用户对应关系 -->
+	<delete id="deleteRoleUserById">
+		delete from role_user_p where role_id in
+		<!-- collection="array是固定写法" 表示 单独的变量数组 -->
+		<foreach collection="array" open="(" close=")" item="roleId"
+			separator=",">
+			#{roleId}
+		</foreach>
+	</delete>
+	
+	<!-- 修改角色 -->
+	<update id="updateRole">
+		update role_p set name=#{name}, remarks=#{remarks}, order_no=#{orderNo} where role_id=#{roleId}
+	</update>
+	
+	<!-- 查找角色详细信息 -->
+	<select id="findRoleById" resultType="Role">
+		select * from role_p where role_id=#{roleId}
+	</select>
+	
+	<!-- 根据角色名称查角色 -->
+	<select id="findRoleByName" resultType="Role">
+		select * from role_p where name=#{name}
+	</select>
+	
+	<!-- 批量插入角色的模块信息 -->
+	<insert id="saveRoleModule">
+		insert into role_module_p (module_id,role_id) 
+		values 
+			<foreach collection="moduleIds" item="moduleId" separator=","  >
+				(#{moduleId}, #{roleId})
+			</foreach>
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+

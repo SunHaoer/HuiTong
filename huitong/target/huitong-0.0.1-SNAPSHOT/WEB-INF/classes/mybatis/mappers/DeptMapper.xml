@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pro.sunhao.ht.mapper.DeptMapper">
+	<!-- 手动封住结果集 -->
+	<resultMap type="Dept" id="deptRM" autoMapping="true">
+		<id column="dept_id" property="deptId" />
+		<!-- 主表使用驼峰映射，其他字段不用写了 -->
+
+		<!-- 上级部门:一个部门 只有一个上级部门 Dept [deptId= , deptName=,state= , parentDept [deptId=,deptName=] 
+			] -->
+		<association property="parentDept" javaType="Dept">
+			<id column="p_id" property="deptId" />
+			<result column="p_name" property="deptName" />
+		</association>
+	</resultMap>
+
+	<!-- 公共的sql语句 -->
+	<sql id="selectDept">
+		select * from
+		dept_p d1
+		left join
+		(select dept_id p_id,dept_name p_name from
+		dept_p) d2
+		on d1.parent_id = d2.p_id
+	</sql>
+
+	<!-- 查询dept部门表：自关联的查询 -->
+	<select id="findAll" resultMap="deptRM">
+		<include refid="selectDept" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="findDeptByPages" resultMap="deptRM">
+		<include refid="selectDept" /> limit #{startRow}, #{pageSize}
+	</select>
+
+	<!-- 更新部门的状态 -->
+	<update id="updateState">
+		<!-- 两个变量同时取值：使用map集合 -->
+		<!-- update dept_p set state=#{state} where dept_id=#{deptId} -->
+
+		<!-- 批量更新部门状态 -->
+		update dept_p set state=#{state}
+		where dept_id in
+		<!-- collection="map的key" : map集合遍历 -->
+		<foreach collection="deptIds" open="(" close=")" item="deptId"
+			separator=",">
+			#{deptId}
+		</foreach>
+	</update>
+
+	<!-- 批量删除部门信息 -->
+	<delete id="deleteDept">
+		delete from dept_p where dept_id in
+		<!-- collection="array是固定写法" 表示 单独的变量数组 -->
+		<foreach collection="array" open="(" close=")" item="deptId"
+			separator=",">
+			#{deptId}
+		</foreach>
+	</delete>
+
+	<!-- 查询上级部门信息：单表查询 其实所有的部门都可以做为上级部门 -->
+	<select id="findParentDept" resultType="Dept">
+		select * from dept_p
+	</select>
+
+	<!-- 动态的插入一条部门信息 -->
+	<insert id="saveDept">
+		insert into dept_p
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deptId != null">dept_id,</if>
+			<if test="parentDept != null">parent_id,</if>
+			<if test="deptName != null">dept_name,</if>
+			<if test="state != null">state</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deptId != null">#{deptId},</if>
+			<if test="parentDept != null">#{parentDept.deptId},</if>
+			<if test="deptName != null">#{deptName},</if>
+			<if test="state != null">#{state}</if>
+		</trim>
+	</insert>
+
+	<!-- 根据部门id查询数据库是否存在数据 -->
+	<select id="findDeptById" resultType="Dept">
+		select * from dept_p
+		where dept_id=#{deptId}
+	</select>
+
+	<!-- 修改功能的数据回显 -->
+	<select id="findDeptBackById" resultMap="deptRM">
+		<include refid="selectDept" />
+		where dept_id=#{deptId}
+	</select>
+	
+	<!-- 统计部门数量 -->
+	<select id="getDeptTotalCount" resultType="int">
+		select count(*) from dept_p
+	</select>
+
+</mapper>

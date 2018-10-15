@@ -30,8 +30,8 @@ public class DeptController {
 	public String toDeptList(
 			@RequestParam(defaultValue="1") int currentPage,
 			@RequestParam(defaultValue="10") int pageSize, Model model) {
-for(int i = 0; i < 10; i++) System.out.println();
-System.out.println(currentPage + " " + pageSize);
+//for(int i = 0; i < 10; i++) System.out.println();
+//System.out.println(currentPage + " " + pageSize);
 		PageBean<Dept> pageBean = deptService.findDeptByPages(currentPage, pageSize);
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("deptList", pageBean.getPageList());
